@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Barrio Los Alpes, Cúcuta - Un barrio, una comunidad, unidos siempre. Portal oficial de la Junta de Acción Comunal.">
+<meta name="theme-color" content="#1a7a4a">
+<title>Barrio Los Alpes - Cúcuta | Un barrio, una comunidad, unidos siempre</title>
+
+<!-- Fuentes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Variables de entorno inyectadas por Cloudflare Pages (_headers o workers) -->
+<!-- En producción: usar Cloudflare Pages Functions para inyectar __ENV__ -->
+<script>
+  window.__ENV__ = {
+    SUPABASE_URL:      '%%SUPABASE_URL%%',
+    SUPABASE_ANON_KEY: '%%SUPABASE_ANON_KEY%%',
+  };
+</script>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-logo">Los Alpes</div>
+  <div class="ld-sub">Cargando tu comunidad...</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+<div id="toast-wrap" class="toast-wrap"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#inicio" class="nav-logo">
+    <img src="https://drive.google.com/thumbnail?sz=w1000&id=1XtThHuX-2cAb2z39Ew9msOiZlsGICgxE"
+         alt="Logo Barrio Los Alpes"
+         style="width:44px;height:44px;object-fit:contain;border-radius:6px;flex-shrink:0"
+         onerror="this.style.display='none'">
+    <div class="nav-txt">Los Alpes <span class="nav-sub">Cúcuta &middot; Comuna 9</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#comunidad">Comunidad</a></li>
+    <li><a href="#noticias">Noticias</a></li>
+    <li><a href="#eventos">Eventos</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://wa.me/573118474986" class="nav-cta wa-link" target="_blank" rel="noopener">&#x1F4AC; WhatsApp</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger-btn" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#comunidad">&#x1F3D8; Comunidad</a>
+  <a href="#noticias">&#x1F4E2; Noticias</a>
+  <a href="#eventos">&#x1F4C5; Eventos</a>
+  <a href="#servicios">&#x1F6E0; Servicios</a>
+  <a href="#galeria">&#x1F5BC; Galería</a>
+  <a href="#redes">&#x1F4F1; Redes</a>
+  <a href="#contacto">&#x2709; Contacto</a>
+  <a href="https://wa.me/573118474986" class="wa-link" target="_blank" rel="noopener"
+     style="color:#25d366;border-bottom:none;">&#x1F4AC; Unirme al WhatsApp</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="inicio" style="min-height:100vh;background:linear-gradient(160deg,var(--verde-o) 0%,var(--azul-o) 55%,var(--verde-o) 100%);position:relative;display:flex;align-items:center;overflow:hidden;padding-top:66px;max-width:100%">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <svg class="mtn-bg" viewBox="0 0 1440 280">
+    <path d="M0,280L0,190L180,95L360,170L540,75L720,155L900,55L1080,145L1260,85L1440,160L1440,280Z" fill="white"/>
+  </svg>
+  <div class="hero-wrap">
+    <div>
+      <div class="hero-badge"><span class="hero-dot"></span>Barrio Los Alpes &middot; Cúcuta</div>
+      <h1 class="hero-h1">Un barrio,<br>una <span class="hero-hl">comunidad</span>,<br>unidos siempre</h1>
+      <p class="hero-lema">Fundado en <strong>1955</strong> por familias trabajadoras que transformaron las laderas de la <strong>Comuna 9</strong> en un hogar lleno de vida y solidaridad.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/573118474986" class="btn-wa wa-link" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Únete al grupo de WhatsApp
+        </a>
+        <a href="#comunidad" class="btn-sec">Conocer más &#x2192;</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="st-num">1955</div><div class="st-lbl">Fundado</div></div>
+        <div class="st-div"></div>
+        <div><div class="st-num">69+</div><div class="st-lbl">Años</div></div>
+        <div class="st-div"></div>
+        <div><div class="st-num">C-9</div><div class="st-lbl">Comuna</div></div>
+        <div class="st-div"></div>
+        <div><div class="st-num">JAC</div><div class="st-lbl">Activa</div></div>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center">
+        <div class="glow"></div>
+        <img src="https://drive.google.com/thumbnail?sz=w1000&id=199b38zQtlkOz1aZ_Pc1AuHmvRJg2ISh8"
+             alt="Escudo Oficial Barrio Los Alpes"
+             style="width:300px;max-width:90%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 12px 32px rgba(0,0,0,.45));animation:ps 3s ease-in-out infinite"
+             loading="eager" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMUNIDAD ═══ -->
+<div id="comunidad" class="sec" style="background:var(--crema)">
+  <div class="sec-in">
+    <div class="com-grid">
+      <div>
+        <span class="tag tag-v">Historia</span>
+        <h2 class="sec-h">Nuestra historia de<br>esfuerzo y unión</h2>
+        <div class="divl"></div>
+        <div class="hc fi">
+          <span class="fb">1955 — Los inicios</span>
+          <h3>Fundación Popular</h3>
+          <p>Los Alpes no nació de un decreto oficial, sino del esfuerzo de familias migrantes que levantaron el barrio "a pulso" en las laderas de la zona alta de Cúcuta, aprovechando terrenos elevados que estaban deshabitados.</p>
+        </div>
+        <div class="hc az fi">
+          <span class="fb az">21 mayo 1963 — Legalización</span>
+          <h3>Personería Jurídica</h3>
+          <p>Tras 8 años de organización, el Estado reconoció al barrio oficialmente. Se constituyó la primera JAC y se gestionaron redes eléctricas, acueducto y la Escuela Los Alpes.</p>
+        </div>
+        <div class="hc do fi">
+          <span class="fb do">El Nombre</span>
+          <h3>¿Por qué "Los Alpes"?</h3>
+          <p>Los fundadores bautizaron al barrio por su topografía pronunciada y el clima fresco de las alturas, analogía con la cadena montañosa europea. Hoy da una vista privilegiada de Cúcuta.</p>
+        </div>
+      </div>
+      <div>
+        <div class="mvc fi">
+          <div class="mvc-ic v">&#x1F3AF;</div>
+          <div><h4>Misión</h4><p>Fortalecer la comunidad promoviendo la participación ciudadana activa, la comunicación constante y el apoyo mutuo entre vecinos del barrio.</p></div>
+        </div>
+        <div class="mvc fi">
+          <div class="mvc-ic a">&#x1F52D;</div>
+          <div><h4>Visión</h4><p>Ser una comunidad modelo de crecimiento organizado, con vecinos unidos trabajando por el bienestar colectivo y el desarrollo social del sector.</p></div>
+        </div>
+        <div class="val-grid">
+          <div class="vc fi"><div class="vc-ic">&#x1F91D;</div><h4>Respeto</h4><p>Convivencia armoniosa</p></div>
+          <div class="vc fi"><div class="vc-ic">&#x2764;&#xFE0F;</div><h4>Solidaridad</h4><p>Apoyo mutuo siempre</p></div>
+          <div class="vc fi"><div class="vc-ic">&#x2B50;</div><h4>Compromiso</h4><p>Responsabilidad comunal</p></div>
+          <div class="vc fi"><div class="vc-ic">&#x1F6E1;&#xFE0F;</div><h4>Seguridad</h4><p>Vigilancia colectiva</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NOTICIAS (dinámico — Supabase) ═══ -->
+<div id="noticias" class="sec" style="background:#fff">
+  <div class="sec-in">
+    <div style="margin-bottom:36px">
+      <span class="tag tag-a">Actualidad</span>
+      <h2 class="sec-h az">Noticias y Avisos</h2>
+      <div class="divl"></div>
+      <p class="sec-p">Mantente al día con lo que pasa en tu comunidad. Anuncios importantes de la JAC.</p>
+    </div>
+    <div id="noticias-container"><div style="text-align:center;padding:40px;color:var(--gris)">Cargando noticias...</div></div>
+  </div>
+</div>
+
+<!-- ═══ EVENTOS (dinámico — Supabase) ═══ -->
+<div id="eventos" class="sec" style="background:var(--crema)">
+  <div class="sec-in">
+    <div style="margin-bottom:36px">
+      <span class="tag tag-v">Agenda</span>
+      <h2 class="sec-h">Próximos Eventos</h2>
+      <div class="divl"></div>
+      <p class="sec-p">Actividades, reuniones y fechas importantes para los vecinos de Los Alpes.</p>
+    </div>
+    <div id="eventos-container"><div style="text-align:center;padding:40px;color:var(--gris)">Cargando eventos...</div></div>
+  </div>
+</div>
+
+<!-- ═══ SERVICIOS (dinámico — Supabase) ═══ -->
+<div id="servicios" class="sec" style="background:#fff">
+  <div class="sec-in">
+    <div style="margin-bottom:36px">
+      <span class="tag tag-a">Directorio</span>
+      <h2 class="sec-h az">Servicios del Barrio</h2>
+      <div class="divl"></div>
+      <p class="sec-p">Contactos útiles y servicios importantes para los residentes de Los Alpes.</p>
+    </div>
+    <div id="servicios-container"><div style="text-align:center;padding:40px;color:var(--gris)">Cargando servicios...</div></div>
+  </div>
+</div>
+
+<!-- ═══ IDENTIDAD VISUAL ═══ -->
+<div id="identidad" class="id-sec">
+  <div class="sec-in">
+    <div style="margin-bottom:44px;text-align:center">
+      <span class="tag" style="background:rgba(74,222,128,.15);color:#4ade80">Identidad</span>
+      <h2 class="sec-h wh">Símbolos del Barrio</h2>
+      <div class="divl" style="margin:12px auto 0"></div>
+    </div>
+    <div class="id-grid">
+      <div class="id-card fi">
+        <h3>&#x2BF8;&#xFE0F; El Escudo</h3>
+        <img class="id-img"
+             src="https://drive.google.com/thumbnail?sz=w1000&id=199b38zQtlkOz1aZ_Pc1AuHmvRJg2ISh8"
+             alt="Escudo Los Alpes" loading="lazy" onerror="this.style.opacity='.2'">
+        <p>Símbolo oficial para actos solemnes. Tres cuarteles: geografía, fundadores y fe. Lema: <em>Labor et Unitas</em>.</p>
+      </div>
+      <div class="id-card fi">
+        <h3>&#x1F3F3;&#xFE0F; La Bandera</h3>
+        <img class="id-img"
+             src="https://drive.google.com/thumbnail?sz=w1000&id=1Eez-QV_NcvrB7sFHP0-4MrK8jvHycumx"
+             alt="Bandera Los Alpes" loading="lazy" onerror="this.style.opacity='.2'">
+        <p>Tricolor: Azul (lealtad), Blanco (paz y convivencia) y Verde (esperanza y territorio).</p>
+      </div>
+      <div class="id-card fi">
+        <h3>&#x2726; El Logo</h3>
+        <img class="id-img"
+             src="https://drive.google.com/thumbnail?sz=w1000&id=1XtThHuX-2cAb2z39Ew9msOiZlsGICgxE"
+             alt="Logo Los Alpes" loading="lazy" onerror="this.style.opacity='.2'">
+        <p>Versión moderna para redes sociales y uniformes. El círculo representa la unión de todos los vecinos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GALERÍA (dinámico — Supabase Storage) ═══ -->
+<div id="galeria" class="sec" style="background:var(--crema)">
+  <div class="sec-in">
+    <div style="margin-bottom:36px">
+      <span class="tag tag-v">Imágenes</span>
+      <h2 class="sec-h">Galería Comunitaria</h2>
+      <div class="divl"></div>
+      <p class="sec-p">Momentos y lugares que hacen especial a nuestro barrio Los Alpes.</p>
+    </div>
+    <div id="galeria-container"><div style="text-align:center;padding:40px;color:var(--gris)">Cargando galería...</div></div>
+  </div>
+</div>
+
+<!-- Modal imagen ampliada -->
+<div class="modal-ov" id="img-modal">
+  <div style="max-width:90vw;max-height:90vh;position:relative">
+    <img id="img-modal-img" src="" alt=""
+         style="max-width:100%;max-height:80vh;border-radius:12px;display:block">
+    <button onclick="document.getElementById('img-modal').classList.remove('open');document.body.style.overflow=''"
+            style="position:absolute;top:-11px;right:-11px;background:#fff;border:none;width:30px;height:30px;border-radius:50%;font-size:1rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)">&#x2715;</button>
+  </div>
+</div>
+
+<!-- ═══ PARTICIPACIÓN ═══ -->
+<div id="participacion" class="pt-sec">
+  <div class="sec-in">
+    <div style="margin-bottom:36px;text-align:center">
+      <span class="tag tag-v">Acción</span>
+      <h2 class="sec-h" style="text-align:center">Participa en tu Comunidad</h2>
+      <div class="divl" style="margin:12px auto"></div>
+      <p class="sec-p" style="margin:0 auto;text-align:center">Tu voz importa. Hay muchas formas de contribuir al desarrollo del barrio.</p>
+    </div>
+    <div class="pt-grid">
+      <div class="ptc fi"><div class="pt-ic">&#x1F5F3;&#xFE0F;</div><h3>Vota y Decide</h3><p>Participa en las votaciones de la JAC para elegir proyectos y prioridades.</p></div>
+      <div class="ptc fi"><div class="pt-ic">&#x1F64B;</div><h3>Sé Voluntario</h3><p>Únete a jornadas de limpieza, arborización y embellecimiento comunitario.</p></div>
+      <div class="ptc fi"><div class="pt-ic">&#x1F4A1;</div><h3>Propone Ideas</h3><p>Comparte tus ideas en las reuniones o por WhatsApp para mejorar el barrio.</p></div>
+      <div class="ptc fi"><div class="pt-ic">&#x1F4E2;</div><h3>Informa y Alerta</h3><p>Reporta riesgos, problemas de infraestructura o situaciones de inseguridad.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ REDES SOCIALES ═══ -->
+<div id="redes" class="sec" style="background:#fff">
+  <div class="sec-in">
+    <div class="rd-grid">
+      <div>
+        <span class="tag tag-v">Digital</span>
+        <h2 class="sec-h" style="margin-bottom:13px">Síguenos en<br>Redes Sociales</h2>
+        <div class="divl"></div>
+        <p style="color:var(--gris);line-height:1.8;margin-bottom:20px;font-size:.93rem">Conéctate con la comunidad de Los Alpes en todas las plataformas digitales.</p>
+        <div class="rd-btns">
+          <a href="https://wa.me/573118474986" class="btn-red wa wa-link" target="_blank" rel="noopener">&#x1F4AC; Grupo WhatsApp</a>
+          <a href="#" class="btn-red ig ig-link" target="_blank" rel="noopener">&#x1F4F7; Instagram</a>
+        </div>
+        <div style="margin-top:20px;padding:13px 17px;background:var(--crema);border-radius:var(--r);display:flex;align-items:center;gap:11px;flex-wrap:wrap">
+          <span style="font-size:1.35rem">&#x1F4F1;</span>
+          <div style="flex:1;min-width:130px">
+            <div style="font-weight:700;font-size:.86rem">+57 311 847 4986</div>
+            <div style="font-size:.76rem;color:var(--gris)">Recibe notificaciones al instante</div>
+          </div>
+          <a href="https://wa.me/573118474986" class="wa-link" target="_blank" rel="noopener"
+             style="background:#25d366;color:#fff;padding:7px 13px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.76rem;white-space:nowrap">Unirme</a>
+        </div>
+      </div>
+      <div class="fb-card fi">
+        <div style="font-size:2.7rem;margin-bottom:13px">&#x1F4D8;</div>
+        <h3>Fanpage en Facebook</h3>
+        <p>Síguenos en nuestra página oficial. Fotos, eventos y noticias del barrio en tiempo real.</p>
+        <a href="#" class="btn-fb fb-link" target="_blank" rel="noopener">&#x1F44D; Seguir en Facebook</a>
+        <div style="margin-top:17px;background:rgba(255,255,255,.1);padding:9px 13px;border-radius:8px;font-size:.78rem;opacity:.84">@BarrioLosAlpesCucuta</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAPA ═══ -->
+<div id="mapa" class="sec" style="background:var(--crema)">
+  <div class="sec-in">
+    <div style="margin-bottom:28px">
+      <span class="tag tag-v">Ubicación</span>
+      <h2 class="sec-h">¿Dónde Estamos?</h2>
+      <div class="divl"></div>
+      <p class="sec-p">Barrio Los Alpes, Comuna 9 Suroccidental, Cúcuta, Norte de Santander, Colombia.</p>
+    </div>
+    <div class="map-c fi">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.8!2d-72.5164!3d7.8813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6611b5c3a2e44b%3A0xe07c0e5c75e1e04a!2sLos%20Alpes%2C%20C%C3%BAcuta!5e0!3m2!1ses!2sco!4v1700000000001"
+        title="Barrio Los Alpes - Cúcuta"
+        loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <a href="https://maps.app.goo.gl/oosSBmN78BLx5CGL8" target="_blank" rel="noopener"
+         class="btn-wa" style="display:inline-flex;text-decoration:none;background:var(--verde);box-shadow:none;padding:12px 26px">
+        &#x1F4CD; Ver ubicación exacta en Google Maps
+      </a>
+    </div>
+    <div class="map-info">
+      <div class="mic"><span style="font-size:1.65rem">&#x1F3D8;&#xFE0F;</span><div><h4>Barrio Los Alpes</h4><p>Cúcuta, Norte de Santander</p></div></div>
+      <div class="mic"><span style="font-size:1.65rem">&#x1F5FA;&#xFE0F;</span><div><h4>Comuna 9 Suroccidental</h4><p>Limita con Carora, San José y Bogotá</p></div></div>
+      <div class="mic"><span style="font-size:1.65rem">&#x1F697;</span><div><h4>Acceso Principal</h4><p>Zona Carora · Av. 10 · Anillo Vial</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACTO ═══ -->
+<div id="contacto" class="sec" style="background:#fff">
+  <div class="sec-in">
+    <div style="margin-bottom:42px">
+      <span class="tag tag-a">Contacto</span>
+      <h2 class="sec-h az">Contáctanos</h2>
+      <div class="divl"></div>
+      <p class="sec-p">¿Tienes una duda, sugerencia o quieres reportar algo? La JAC está aquí para escucharte.</p>
+    </div>
+    <div class="ct-grid">
+      <div>
+        <div class="ct-item fi"><div class="ct-ic">&#x1F4CD;</div><div class="ct-inf"><span>Ubicación</span><strong>Barrio Los Alpes, Comuna 9, Cúcuta</strong></div></div>
+        <div class="ct-item fi"><div class="ct-ic">&#x1F4DE;</div><div class="ct-inf"><span>WhatsApp Comunal</span><strong>+57 311 847 4986</strong></div></div>
+        <div class="ct-item fi"><div class="ct-ic">&#x2709;&#xFE0F;</div><div class="ct-inf"><span>Email JAC</span><strong id="jac-email">jac.losalpes@gmail.com</strong></div></div>
+        <div class="ct-item fi"><div class="ct-ic">&#x1F550;</div><div class="ct-inf"><span>Atención JAC</span><strong id="jac-horario">Lunes a Sábado 8am - 12pm</strong></div></div>
+        <div style="margin-top:22px;background:var(--verde-s);border-radius:var(--rl);padding:24px">
+          <h4 style="font-weight:800;color:var(--verde-o);margin-bottom:9px">&#x1F3DB;&#xFE0F; Junta de Acción Comunal</h4>
+          <p style="font-size:.83rem;color:var(--gris);line-height:1.7">La JAC activa de Los Alpes gestiona proyectos de infraestructura, seguridad y desarrollo social con la Alcaldía de Cúcuta.</p>
+          <div style="margin-top:12px;font-size:.78rem;font-weight:600;color:var(--verde)" id="jac-presidente">Edwin Angarita Niño · Edinson Ricardo Angarita Niño</div>
+        </div>
+      </div>
+      <div class="form-c fi">
+        <h3>Envíanos un Mensaje</h3>
+        <div id="contact-form">
+          <div class="fr">
+            <div class="fg"><label>Nombre *</label><input type="text" id="inp-nombre" placeholder="Tu nombre"></div>
+            <div class="fg"><label>Teléfono</label><input type="tel" id="inp-tel" placeholder="+57 300..."></div>
+          </div>
+          <div class="fg"><label>Correo</label><input type="email" id="inp-email" placeholder="tu@correo.com"></div>
+          <div class="fg">
+            <label>Tipo de mensaje *</label>
+            <select id="inp-tipo">
+              <option value="">Selecciona...</option>
+              <option>Sugerencia para el barrio</option>
+              <option>Reporte de problema</option>
+              <option>Solicitud de información</option>
+              <option>Propuesta comunitaria</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="fg"><label>Mensaje *</label><textarea id="inp-mensaje" placeholder="Escribe tu mensaje..."></textarea></div>
+          <button class="btn-sub" id="btn-contacto" onclick="window._app.enviarContacto()">Enviar Mensaje &#x1F4E8;</button>
+        </div>
+        <div class="f-ok" id="contact-success">
+          <div style="font-size:3rem">&#x2705;</div>
+          <h3 style="font-family:'Playfair Display',serif;color:var(--verde-o);margin:12px 0 7px">¡Mensaje enviado!</h3>
+          <p style="color:var(--gris)">La JAC de Los Alpes te responderá pronto. Gracias por comunicarte.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PANEL ADMIN ═══ -->
+<div id="admin-panel" style="display:none;background:var(--crema);padding:86px 0;border-top:4px solid var(--verde)">
+  <div class="sec-in">
+    <div style="margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div><span class="tag tag-a">Panel</span><h2 class="sec-h az">Administración</h2></div>
+    </div>
+    <div class="adm-stats">
+      <div class="adm-sc"><div class="adm-n" id="stat-noticias">-</div><p>Noticias</p></div>
+      <div class="adm-sc az"><div class="adm-n" id="stat-eventos">-</div><p>Eventos</p></div>
+      <div class="adm-sc"><div class="adm-n" id="stat-servicios">-</div><p>Servicios</p></div>
+      <div class="adm-sc mo"><div class="adm-n" id="stat-galeria">-</div><p>Fotos</p></div>
+      <div class="adm-sc ro"><div class="adm-n" id="stat-contactos">-</div><p>Mensajes</p></div>
+    </div>
+    <div class="adm-tabs">
+      <button class="tab-btn active" data-tab="noticias" onclick="window._app.activarTab('noticias')">&#x1F4E2; Noticias</button>
+      <button class="tab-btn" data-tab="eventos"   onclick="window._app.activarTab('eventos')">&#x1F4C5; Eventos</button>
+      <button class="tab-btn" data-tab="imagenes"  onclick="window._app.activarTab('imagenes')">&#x1F4F8; Imágenes</button>
+      <button class="tab-btn" data-tab="contactos" onclick="window._app.activarTab('contactos')">&#x2709;&#xFE0F; Mensajes</button>
+      <button class="tab-btn" data-tab="config"    onclick="window._app.activarTab('config')">&#x2699;&#xFE0F; Config</button>
+    </div>
+
+    <!-- TAB NOTICIAS -->
+    <div class="tab-c active" id="tab-noticias">
+      <div class="adm-fc">
+        <h3>Publicar nueva noticia</h3>
+        <div class="fr">
+          <div class="fg"><label>Título *</label><input type="text" id="adm-not-titulo" placeholder="Título de la noticia"></div>
+          <div class="fg"><label>Tipo</label>
+            <select id="adm-not-tipo"><option>Infraestructura</option><option>Reunion JAC</option><option>Alerta</option><option>Educacion</option><option>Seguridad</option><option>Salud</option><option>General</option></select>
+          </div>
+        </div>
+        <div class="fg"><label>Descripción *</label><textarea id="adm-not-desc" placeholder="Descripción de la noticia..."></textarea></div>
+        <div class="fr">
+          <div class="fg"><label>Autor</label><input type="text" id="adm-not-autor" placeholder="JAC Los Alpes"></div>
+          <div class="fg"><label>¿Destacar?</label>
+            <select id="adm-not-dest"><option value="NO">No destacar</option><option value="SI">Sí, destacar</option></select>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Imagen (opcional)</label>
+          <div class="img-up-wrap" id="not-img-wrap">
+            <input type="hidden" id="adm-not-img" value="">
+            <div class="img-up-preview" id="not-img-preview" style="display:none">
+              <img id="not-img-thumb" src="" alt="preview" class="img-up-thumb">
+              <button type="button" class="img-up-remove" onclick="window._app.quitarImagenPanel('not')" title="Quitar">&#x2715;</button>
+            </div>
+            <label class="img-up-btn" id="not-img-label">
+              <input type="file" accept="image/*" style="display:none" onchange="window._app.subirImagenPanel(this,'not')">
+              &#x1F4F7; Subir imagen
+            </label>
+            <div class="img-up-status" id="not-img-status"></div>
+          </div>
+        </div>
+        <button class="btn-p" id="btn-not-save" onclick="window._app.guardarNoticiaAdmin()">&#x1F4E4; Publicar Noticia</button>
+      </div>
+    </div>
+
+    <!-- TAB EVENTOS -->
+    <div class="tab-c" id="tab-eventos">
+      <div class="adm-fc">
+        <h3>Crear nuevo evento</h3>
+        <div class="fr">
+          <div class="fg"><label>Nombre *</label><input type="text" id="adm-ev-nombre" placeholder="Nombre del evento"></div>
+          <div class="fg"><label>Tipo</label>
+            <select id="adm-ev-tipo"><option>Reunion Comunal</option><option>Deporte</option><option>Aniversario</option><option>Cultural</option><option>Ambiental</option><option>Social</option></select>
+          </div>
+        </div>
+        <div class="fg"><label>Descripción</label><textarea id="adm-ev-desc" placeholder="Descripción del evento..."></textarea></div>
+        <div class="fr">
+          <div class="fg"><label>Fecha *</label><input type="date" id="adm-ev-fecha"></div>
+          <div class="fg"><label>Hora</label><input type="time" id="adm-ev-hora"></div>
+        </div>
+        <div class="fg"><label>Lugar</label><input type="text" id="adm-ev-lugar" placeholder="Salón Comunal..."></div>
+        <div class="fg">
+          <label>Imagen (opcional)</label>
+          <div class="img-up-wrap" id="ev-img-wrap">
+            <input type="hidden" id="adm-ev-img" value="">
+            <div class="img-up-preview" id="ev-img-preview" style="display:none">
+              <img id="ev-img-thumb" src="" alt="preview" class="img-up-thumb">
+              <button type="button" class="img-up-remove" onclick="window._app.quitarImagenPanel('ev')" title="Quitar">&#x2715;</button>
+            </div>
+            <label class="img-up-btn" id="ev-img-label">
+              <input type="file" accept="image/*" style="display:none" onchange="window._app.subirImagenPanel(this,'ev')">
+              &#x1F4F7; Subir imagen
+            </label>
+            <div class="img-up-status" id="ev-img-status"></div>
+          </div>
+        </div>
+        <button class="btn-p" id="btn-ev-save" onclick="window._app.guardarEventoAdmin()">&#x1F4C5; Guardar Evento</button>
+      </div>
+    </div>
+
+    <!-- TAB IMÁGENES -->
+    <div class="tab-c" id="tab-imagenes">
+      <div class="adm-fc">
+        <h3>Subir imágenes a Supabase Storage</h3>
+        <div class="up-area" id="upload-area">
+          <input type="file" id="upload-input" multiple accept="image/*">
+          <div style="font-size:2.4rem;margin-bottom:9px">&#x1F5BC;&#xFE0F;</div>
+          <p style="font-weight:700;color:var(--verde-o)">Arrastra imágenes o haz clic para seleccionar</p>
+          <p style="font-size:.8rem;color:var(--gris);margin-top:5px">JPG, PNG, WEBP · Máx 5 MB por imagen</p>
+        </div>
+        <div class="up-prev" id="upload-preview"></div>
+        <div class="fr" style="margin-top:14px">
+          <div class="fg"><label>Título *</label><input type="text" id="img-titulo" placeholder="Título de la imagen"></div>
+          <div class="fg"><label>Categoría</label>
+            <select id="img-cat"><option>Comunidad</option><option>Deporte</option><option>Paisaje</option><option>Educacion</option><option>Naturaleza</option><option>Celebracion</option><option>Infraestructura</option></select>
+          </div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>Descripción</label><input type="text" id="img-desc" placeholder="Descripción breve"></div>
+          <div class="fg"><label>Subido por</label><input type="text" id="img-autor" placeholder="Tu nombre"></div>
+        </div>
+        <button class="btn-p" id="btn-upload" onclick="window._app.subirImagenesGaleria()">&#x1F4E4; Subir a Supabase Storage</button>
+        <p style="margin-top:10px;font-size:.76rem;color:var(--gris)">Las imágenes se guardan en Supabase Storage y aparecen automáticamente en la galería.</p>
+      </div>
+    </div>
+
+    <!-- TAB MENSAJES -->
+    <div class="tab-c" id="tab-contactos">
+      <div class="adm-fc">
+        <h3>Mensajes de vecinos</h3>
+        <div style="overflow-x:auto">
+          <table class="adm-tbl">
+            <thead><tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Tipo</th><th>Mensaje</th><th>Fecha</th></tr></thead>
+            <tbody id="tabla-contactos"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gris)">Cargando...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB CONFIG -->
+    <div class="tab-c" id="tab-config">
+      <div class="adm-fc">
+        <h3>Configuración del Barrio</h3>
+        <p style="color:var(--gris);font-size:.84rem;margin-bottom:18px">Los cambios se sincronizan con Supabase en tiempo real.</p>
+        <div class="fr">
+          <div class="fg"><label>WhatsApp (con 57)</label><input type="text" id="cfg-wa" placeholder="573118474986"></div>
+          <div class="fg"><label>URL Facebook</label><input type="url" id="cfg-fb" placeholder="https://facebook.com/..."></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>URL Instagram</label><input type="url" id="cfg-ig" placeholder="https://instagram.com/..."></div>
+          <div class="fg"><label>Email JAC</label><input type="email" id="cfg-email" placeholder="jac@gmail.com"></div>
+        </div>
+        <div class="fr">
+          <div class="fg"><label>Presidente JAC</label><input type="text" id="cfg-pres" placeholder="Nombre del presidente"></div>
+          <div class="fg"><label>Horario atención</label><input type="text" id="cfg-hora" placeholder="Lun-Sáb 8am-12pm"></div>
+        </div>
+        <button class="btn-p" onclick="window._app.guardarConfigAdmin()">&#x1F4BE; Guardar Configuración</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:3px">
+        <img src="https://drive.google.com/thumbnail?sz=w1000&id=1XtThHuX-2cAb2z39Ew9msOiZlsGICgxE"
+             alt="Logo Los Alpes"
+             style="width:46px;height:46px;object-fit:contain;border-radius:8px;flex-shrink:0;background:rgba(255,255,255,.12);padding:3px"
+             onerror="this.style.display='none'">
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff">Los Alpes</div>
+      </div>
+      <p id="lema-footer"><em>"Un barrio, una comunidad, unidos siempre"</em><br><br>Fundado 1955 · Personería jurídica 21 mayo 1963 · Comuna 9, Cúcuta.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Navegación</h4>
+      <a href="#inicio">Inicio</a><a href="#comunidad">Comunidad</a><a href="#noticias">Noticias</a><a href="#eventos">Eventos</a><a href="#galeria">Galería</a>
+    </div>
+    <div class="ft-col">
+      <h4>Servicios</h4>
+      <a href="#servicios">Servicios</a><a href="#mapa">Ubicación</a><a href="#participacion">Participación</a><a href="#redes">Redes</a><a href="#contacto">Contacto</a>
+    </div>
+    <div class="ft-col">
+      <h4>Comunidad</h4>
+      <a href="https://wa.me/573118474986" class="wa-link" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#" class="fb-link" target="_blank" rel="noopener">Facebook</a>
+      <a href="#" class="ig-link" target="_blank" rel="noopener">Instagram</a>
+      <a href="#contacto">JAC Los Alpes</a>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div>&copy; 2025 Barrio Los Alpes · Cúcuta, Colombia</div>
+    <div>Hecho con amor por Edwin &amp; Edinson Angarita Niño</div>
+  </div>
+  <div style="text-align:center;margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)">
+    <button id="admin-toggle-btn" onclick="window._app.abrirLogin()"
+            style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);padding:7px 18px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer">
+      &#x2699;&#xFE0F; Administrar
+    </button>
+  </div>
+</footer>
+
+<!-- ═══ MODALES ═══ -->
+<!-- Login -->
+<div class="modal-ov" id="login-modal" onclick="if(event.target===this)window._app.cerrarLogin()">
+  <div class="login-panel">
+    <div class="login-logo">
+      <img src="https://drive.google.com/thumbnail?sz=w1000&id=1XtThHuX-2cAb2z39Ew9msOiZlsGICgxE"
+           alt="Logo Los Alpes" style="width:64px;height:64px;object-fit:contain;border-radius:12px" onerror="this.style.display='none'">
+    </div>
+    <h2 class="login-title">Panel Administrativo</h2>
+    <p class="login-sub">Barrio Los Alpes &middot; JAC</p>
+    <div id="login-error" class="login-error" style="display:none"></div>
+    <div class="login-form">
+      <div class="login-field">
+        <label>Usuario</label>
+        <div class="login-input-wrap">
+          <span class="login-icon">&#x1F464;</span>
+          <input type="text" id="login-user" placeholder="Ingresa tu usuario" autocomplete="username"
+                 onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
+        </div>
+      </div>
+      <div class="login-field">
+        <label>Contraseña</label>
+        <div class="login-input-wrap">
+          <span class="login-icon">&#x1F512;</span>
+          <input type="password" id="login-pass" placeholder="Ingresa tu contraseña" autocomplete="current-password"
+                 onkeydown="if(event.key==='Enter')window._app.hacerLogin()">
+          <button class="login-eye" onclick="window._app.togglePassVis()" id="eye-btn" title="Mostrar/ocultar">&#x1F441;</button>
+        </div>
+      </div>
+      <button class="login-btn" id="login-submit" onclick="window._app.hacerLogin()">
+        <span id="login-btn-txt">&#x1F510; Ingresar al panel</span>
+      </button>
+    </div>
+    <button class="login-cancel" onclick="window._app.cerrarLogin()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Detalle / Edición -->
+<div class="modal-ov" id="detalle-modal" onclick="if(event.target===this)window._app.cerrarModal()">
+  <div class="dm-panel">
+    <div class="dm-header">
+      <span id="detalle-titulo" class="dm-title">Detalle</span>
+      <button class="dm-close" onclick="window._app.cerrarModal()" aria-label="Cerrar">&#x2715;</button>
+    </div>
+    <div class="dm-body" id="detalle-body"></div>
+  </div>
+</div>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/573118474986" class="wa-fl wa-link" target="_blank" rel="noopener" title="Únete al grupo del barrio">
+  <div class="wa-tip">Unirse al grupo · +57 311 847 4986</div>
+  <svg viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<!-- ═══ BOOTSTRAP APP (ES Modules) ═══ -->
+<script type="module">
+  import { iniciarApp, abrirLogin, cerrarLogin, hacerLogin, togglePassVis, toggleAdmin,
+           activarTab, cerrarModal, abrirModalNoticia, abrirModalEvento,
+           guardarEdicionNoticia, guardarEdicionEvento, eliminarNt, eliminarEv, eliminarImg,
+           guardarNoticiaAdmin, guardarEventoAdmin, enviarContacto, guardarConfigAdmin,
+           subirImagenesGaleria, subirImagenPanel, quitarImagenPanel,
+           subirImagenModal, quitarImagenModal, initUploadArea, initObserver, toast
+         } from './services-app.js';
+
+  // Exponer al DOM para los onclick="window._app.xxx()"
+  window._app = {
+    abrirLogin, cerrarLogin, hacerLogin, togglePassVis, toggleAdmin,
+    activarTab, cerrarModal, abrirModalNoticia, abrirModalEvento,
+    guardarEdicionNoticia, guardarEdicionEvento, eliminarNt, eliminarEv, eliminarImg,
+    guardarNoticiaAdmin, guardarEventoAdmin, enviarContacto, guardarConfigAdmin,
+    subirImagenesGaleria, subirImagenPanel, quitarImagenPanel,
+    subirImagenModal, quitarImagenModal, initUploadArea, toast,
+  };
+
+  // Arranque
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarApp);
+  } else {
+    iniciarApp();
+  }
+</script>
+</body>
+</html>
