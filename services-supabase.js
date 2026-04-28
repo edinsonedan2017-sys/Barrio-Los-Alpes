@@ -86,7 +86,7 @@ export async function subirImagen(file) {
 
   // Subir al bucket "imagenes"
   const uploadRes = await fetch(
-    `${CONFIG.SUPABASE_URL}/storage/v1/object/imagenes/${path}`,
+    `${CONFIG.SUPABASE_URL}/storage/v1/object/losalpes-imagenes/${path}`,
     {
       method:  'POST',
       headers: {
@@ -105,7 +105,7 @@ export async function subirImagen(file) {
   }
 
   // Construir URL pública
-  const publicUrl = `${CONFIG.SUPABASE_URL}/storage/v1/object/public/imagenes/${path}`;
+  const publicUrl = `${CONFIG.SUPABASE_URL}/storage/v1/object/public/losalpes-imagenes/${path}`;
   return publicUrl;
 }
 
