@@ -1,11 +1,10 @@
 // ═══════════════════════════════════════════════════════════════
-// services-supabase.js ACTUALIZADO — Barrio Los Alpes
-// Usa anon key para TODO (lectura y escritura)
-// Los permisos se manejan via RLS en fix_permisos.sql
+// services-supabase.js — Barrio Los Alpes
+// Subida de imágenes directo a Supabase Storage (sin Apps Script)
 // ═══════════════════════════════════════════════════════════════
 import CONFIG from './config.js';
 
-// ── Cliente HTTP base ─────────────────────────────────────────
+// ── Cliente Supabase ──────────────────────────────────────────
 class SupabaseClient {
   constructor(url, key) {
     this.url  = url.replace(/\/$/, '');
@@ -46,13 +45,16 @@ class SupabaseClient {
   }
 
   async patchByKey(table, key, val, body) {
-    const res = await fetch(`${this.url}/rest/v1/${table}?${key}=eq.${encodeURIComponent(val)}`, {
-      method:  'PATCH',
-      headers: { ...this.hdrs, 'Prefer': 'return=representation' },
-      body:    JSON.stringify(body),
-    });
-    if (!res.ok) { const e = await res.text(); throw new Error(`PATCH ${table} by ${key}: ${e}`); }
-    return res.json();
+    const res = await fetch(
+      `${this.url}/rest/v1/${table}?${key}=eq.${encodeURIComponent(val)}`,
+      {
+        method:  'PATCH',
+        headers: { ...this.hdrs, 'Prefer': 'return=minimal' },
+        body:    JSON.stringify(body),
+      }
+    );
+    if (!res.ok) { const e = await res.text(); throw new Error(`PATCH by key: ${e}`); }
+    return true;
   }
 
   async softDelete(table, id) {
@@ -60,8 +62,52 @@ class SupabaseClient {
   }
 }
 
-// Instancia única usando anon key (con permisos amplios tras fix_permisos.sql)
 const db = new SupabaseClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+
+// ════════════════════════════════════════════════════════════════
+// SUBIDA DE IMAGEN — Supabase Storage directo
+// ════════════════════════════════════════════════════════════════
+export async function subirImagen(file) {
+  const TIPOS = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+  // Validar tipo
+  if (!TIPOS.includes(file.type)) {
+    throw new Error('Tipo no permitido. Usa JPG, PNG o WEBP');
+  }
+
+  // Validar tamaño (5 MB)
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error(`Imagen muy grande (${(file.size/1024/1024).toFixed(1)} MB). Máx 5 MB`);
+  }
+
+  // Generar nombre único
+  const ext  = file.name.split('.').pop() || 'jpg';
+  const path = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+
+  // Subir al bucket "imagenes"
+  const uploadRes = await fetch(
+    `${CONFIG.SUPABASE_URL}/storage/v1/object/imagenes/${path}`,
+    {
+      method:  'POST',
+      headers: {
+        'apikey':        CONFIG.SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+        'Content-Type':  file.type,
+        'x-upsert':      'true',
+      },
+      body: file,
+    }
+  );
+
+  if (!uploadRes.ok) {
+    const err = await uploadRes.text();
+    throw new Error('Error subiendo imagen: ' + err);
+  }
+
+  // Construir URL pública
+  const publicUrl = `${CONFIG.SUPABASE_URL}/storage/v1/object/public/imagenes/${path}`;
+  return publicUrl;
+}
 
 // ════════════════════════════════════════════════════════════════
 // CONFIGURACIÓN
@@ -74,11 +120,8 @@ export async function getConfiguracion() {
 export async function actualizarConfiguracion(datos) {
   for (const [clave, valor] of Object.entries(datos)) {
     if (!valor) continue;
-    try {
-      await db.patchByKey('configuracion', 'clave', clave, { valor });
-    } catch (e) {
-      console.warn(`Config ${clave}:`, e.message);
-    }
+    try { await db.patchByKey('configuracion', 'clave', clave, { valor }); }
+    catch (e) { console.warn(`Config ${clave}:`, e.message); }
   }
 }
 
@@ -87,9 +130,9 @@ export async function actualizarConfiguracion(datos) {
 // ════════════════════════════════════════════════════════════════
 export async function getNoticias() {
   return db.get('noticias', {
-    select:  '*',
-    activo:  'eq.true',
-    order:   'created_at.desc',
+    select: '*',
+    activo: 'eq.true',
+    order:  'created_at.desc',
   });
 }
 
@@ -127,7 +170,7 @@ export async function getEventos() {
   return db.get('eventos', {
     select: '*',
     activo: 'eq.true',
-    fecha:  `gte.${new Date().toISOString().slice(0,10)}`,
+    fecha:  `gte.${new Date().toISOString().slice(0, 10)}`,
     order:  'fecha.asc',
   });
 }
@@ -196,49 +239,6 @@ export async function guardarEnGaleria(datos) {
 
 export async function eliminarImagen(id) {
   return db.softDelete('galeria', id);
-}
-
-// ════════════════════════════════════════════════════════════════
-// SUBIDA DE IMAGEN — via Google Apps Script → Drive
-// ════════════════════════════════════════════════════════════════
-export async function subirImagen(file) {
-  const APPS_SCRIPT_URL = CONFIG.APPS_SCRIPT_URL;
-
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('TU_DEPLOYMENT_ID')) {
-    throw new Error('Configura APPS_SCRIPT_URL en config.js con la URL de tu Apps Script deploy');
-  }
-
-  // Validar
-  const TIPOS = ['image/jpeg','image/png','image/webp','image/gif'];
-  if (!TIPOS.includes(file.type)) throw new Error('Tipo no permitido. Usa JPG, PNG o WEBP');
-  if (file.size > 5 * 1024 * 1024) throw new Error(`Imagen muy grande (${(file.size/1024/1024).toFixed(1)} MB). Máx 5 MB`);
-
-  // Convertir a base64
-  const base64 = await new Promise((res, rej) => {
-    const reader = new FileReader();
-    reader.onload  = e => res(e.target.result.split(',')[1]);
-    reader.onerror = () => rej(new Error('Error leyendo archivo'));
-    reader.readAsDataURL(file);
-  });
-
-  // Enviar al Apps Script backend
-  const response = await fetch(APPS_SCRIPT_URL, {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({
-      accion:   'subir',
-      base64,
-      mimeType: file.type,
-      nombre:   file.name,
-    }),
-  });
-
-  if (!response.ok) throw new Error(`Error del servidor: ${response.status}`);
-  const result = await response.json();
-  if (!result.ok) throw new Error(result.error || 'Error desconocido en la subida');
-
-  // Retorna la URL thumbnail de Google Drive
-  return result.imagenUrl;
 }
 
 // ════════════════════════════════════════════════════════════════
